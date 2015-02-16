@@ -7,9 +7,14 @@ This repo contains several common big data exercises.
     
  
  
- 
+## Setup
+
+1. Install the  JDK 7.0
+2. [Download & Install Maven](http://maven.apache.org/download.cgi)
+   
  
 ## How to run tests
- 
+
+    #from the repository root
     mvn test
  
