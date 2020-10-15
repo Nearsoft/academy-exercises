@@ -1,5 +1,6 @@
 package nearsoft.academy.bigdata.recommendation;
 
+import encora.omar.MovieRecommender;
 import org.apache.mahout.cf.taste.common.TasteException;
 import org.junit.Test;
 
