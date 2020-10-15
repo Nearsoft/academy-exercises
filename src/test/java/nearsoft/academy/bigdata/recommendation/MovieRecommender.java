@@ -1,14 +1,15 @@
 package nearsoft.academy.bigdata.recommendation;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
-import java.util.zip;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.zip.GZIPInputStream;
 import java.io.FileInputStream;
 //mahout package
 import org.apache.mahout.cf.taste.common.TasteException;
