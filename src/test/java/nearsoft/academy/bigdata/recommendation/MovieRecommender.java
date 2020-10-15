@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.util.zip;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -50,7 +51,7 @@ public class MovieRecommender {
         //To read a file, we need to use a try catch.
         try{
             //We initialize our FileStream property with the path received by the object
-            FileInputStream inputStream = new FileInputStream(this.filename);
+            InputStream inputStream = new GZIPInputStream(new FileInputStream(this.filename));
             //We create a scanner on the FileStream to read it line by line
             Scanner myReader = new Scanner(inputStream);
             //We create a file and a writer to create or csv database
