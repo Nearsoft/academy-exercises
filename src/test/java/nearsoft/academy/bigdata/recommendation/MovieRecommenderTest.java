@@ -1,9 +1,10 @@
-package nearsoft.academy.bigdata.recommendation;
+// package nearsoft.academy.bigdata.recommendation;
 
 import org.apache.mahout.cf.taste.common.TasteException;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.io.File;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -15,7 +16,7 @@ public class MovieRecommenderTest {
     public void testDataInfo() throws IOException, TasteException {
         //download movies.txt.gz from 
         //    http://snap.stanford.edu/data/web-Movies.html
-        MovieRecommender recommender = new MovieRecommender("/path/to/movies.txt.gz");
+        MovieRecommender recommender = new MovieRecommender(new File("movies.txt.gz").getAbsolutePath());
         assertEquals(7911684, recommender.getTotalReviews());
         assertEquals(253059, recommender.getTotalProducts());
         assertEquals(889176, recommender.getTotalUsers());
