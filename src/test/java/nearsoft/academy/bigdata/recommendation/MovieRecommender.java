@@ -30,7 +30,7 @@ public class MovieRecommender {
         idsMovies = new HashMap<>();
         prevTime = java.time.LocalTime.now().toSecondOfDay();
         for(String currLine = br.readLine(); currLine != null; currLine = br.readLine()) {
-            if(currLine.length() > 19) { //just to verify that the current line has enough characters to play with (big data = corrupt data)
+            if(currLine.length() >= 17) { //just to verify that the current line has enough characters to play with (big data = corrupt data)
                 if(currLine.charAt(0) == 'p') { //currLine example: "product/productId: B003AI2VGA"
                     currElem = currLine.substring(19);
                     if(!moviesIDs.containsKey(currElem)) {
@@ -39,11 +39,6 @@ public class MovieRecommender {
                     }
                     currMovie = moviesIDs.get(currElem);
                     totalReviews++;
-                    if(totalReviews % 100000 == 0) { //just to print the current state
-                        currTime = java.time.LocalTime.now().toSecondOfDay();
-                        System.out.println("Reviews checked: " + totalReviews + ", time needed: " + (currTime - prevTime) + " seconds.");
-                        prevTime = currTime;
-                    }
                 }
                 else {
                     if(currLine.charAt(7) == 'u') { //currLine example: "review/userId: A141HP4LYPWMSR"
@@ -51,7 +46,7 @@ public class MovieRecommender {
                         if(!usersIDs.containsKey(currElem)) {
                             usersIDs.put(currElem, usersID++);
                         }
-                        currMovie = usersIDs.get(currElem);
+                        currUser = usersIDs.get(currElem);
                     }
                     else if(currLine.charAt(8) == 'c') { //currLine example: "review/score: 3.0"
                         bw.write(currUser + "," + currMovie + "," + currLine.charAt(14) + ".0\n");
