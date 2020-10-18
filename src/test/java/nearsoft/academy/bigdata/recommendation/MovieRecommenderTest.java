@@ -12,11 +12,14 @@ import static org.junit.Assert.assertThat;
 import static org.junit.matchers.JUnitMatchers.hasItem;
 
 public class MovieRecommenderTest {
+
+    private final String MOVIES_GZIP = "src/data/movies.txt.gz";
+
     @Test
     public void testDataInfo() throws IOException, TasteException {
         //download movies.txt.gz from 
         //    http://snap.stanford.edu/data/web-Movies.html
-        MovieRecommender recommender = new MovieRecommender("/path/to/movies.txt.gz");
+        MovieRecommender recommender = new MovieRecommender(MOVIES_GZIP);
         assertEquals(7911684, recommender.getTotalReviews());
         assertEquals(253059, recommender.getTotalProducts());
         assertEquals(889176, recommender.getTotalUsers());
