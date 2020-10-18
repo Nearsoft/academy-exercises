@@ -77,7 +77,7 @@ public class MovieRecommender {
             UserSimilarity similarity = new PearsonCorrelationSimilarity(model);
             UserNeighborhood neighborhood = new ThresholdUserNeighborhood(0.1, similarity, model);
             UserBasedRecommender recommender = new GenericUserBasedRecommender(model, neighborhood, similarity);
-            List<RecommendedItem> rec = recommender.recommend(user, 3);
+            List<RecommendedItem> rec = recommender.recommend(usersIDs.get(user), 3);
             for(RecommendedItem recommendation : rec) {
                 recommendations.add(idsMovies.get(recommendation.getItemID()));
             }
