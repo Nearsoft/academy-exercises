@@ -14,8 +14,9 @@ public class MovieRecommenderTest {
     @Test
     public void testDataInfo() throws IOException, TasteException {
         //download movies.txt.gz from 
-        //    http://snap.stanford.edu/data/web-Movies.html
-        MovieRecommender recommender = new MovieRecommender("/path/to/movies.txt.gz");
+        //http://snap.stanford.edu/data/web-Movies.html
+        //and put the .gz file in the dataset folder
+        MovieRecommender recommender = new MovieRecommender("dataset/movies.txt.gz");
         assertEquals(7911684, recommender.getTotalReviews());
         assertEquals(253059, recommender.getTotalProducts());
         assertEquals(889176, recommender.getTotalUsers());
