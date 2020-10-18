@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: nearsoft.academy.bigdata.recommendation.MovieRecommenderTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2,539.742 sec
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 745.463 sec

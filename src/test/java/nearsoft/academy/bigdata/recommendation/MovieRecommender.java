@@ -27,7 +27,7 @@ public class MovieRecommender {
             //Get the dataSet
             InputStream myObj = new GZIPInputStream(new FileInputStream(dataPath));
             //File myObj = new File("dataset/smallset.txt");
-            Scanner myReader = new Scanner(myObj);
+            BufferedReader myReader = new BufferedReader(new InputStreamReader(myObj));
             //user flag
             boolean userFlag = false;
             //product flag
@@ -42,8 +42,8 @@ public class MovieRecommender {
             float currentScore = 0.0f;
 
             //Read the dataSet
-            while (myReader.hasNextLine()) {
-                String data = myReader.nextLine();
+            String data = myReader.readLine();
+            while (data != null) {
 
                 //Add user
                 if(!userFlag){
@@ -91,6 +91,8 @@ public class MovieRecommender {
                     scoreFlag = false;
                 }
 
+                //Read new line
+                data = myReader.readLine();
             }
 
             //Close the reader
