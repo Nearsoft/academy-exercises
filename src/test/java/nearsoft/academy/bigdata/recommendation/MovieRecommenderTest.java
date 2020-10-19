@@ -18,10 +18,6 @@ public class MovieRecommenderTest {
 
         MovieRecommender recommender = new MovieRecommender("./clean_data.csv");
 
-        System.out.println(recommender.getTotalProducts());
-        System.out.println(recommender.getTotalUsers());
-        System.out.println(recommender.getTotalReviews());
-
         assertEquals(7911684, recommender.getTotalReviews());
         assertEquals(253059, recommender.getTotalProducts());
         assertEquals(889176, recommender.getTotalUsers());

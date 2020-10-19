@@ -16,6 +16,7 @@ import java.util.*;
 
 public class MovieRecommender {
     String path;
+    String numericPath;
     int totalReviews;
     int totalProducts;
     HashMap<String, Long> userMap = new HashMap();
@@ -24,7 +25,7 @@ public class MovieRecommender {
 
     public List<String> getRecommendationsForUser(String userId) throws TasteException, IOException {
         List<String> recommendationsStr = new ArrayList<String>();
-        DataModel model = new FileDataModel(new File("/Users/nearsoft/Documents/academy-exercises/clean_data_numericid.csv"));
+        DataModel model = new FileDataModel(new File(numericPath));
         UserSimilarity similarity = new PearsonCorrelationSimilarity(model);
 
         UserNeighborhood neighborhood = new ThresholdUserNeighborhood(0.1, similarity, model);
@@ -58,6 +59,7 @@ public class MovieRecommender {
 
     public MovieRecommender(String path) throws IOException {
         this.path = path;
+        this.numericPath = path.split(".csv")[0] + "numeric.csv";
         int totalProducts;
         BufferedReader br = new BufferedReader(new FileReader(new File(path)));
         String thisLine = null;
@@ -94,7 +96,7 @@ public class MovieRecommender {
 
     public void buildCSV(String path) throws IOException {
         String thisLine = null;
-        FileWriter fw = new FileWriter("./clean_data_numericid.csv");
+        FileWriter fw = new FileWriter(numericPath);
         BufferedWriter bw = new BufferedWriter(fw);
         try {
             BufferedReader br = new BufferedReader(new FileReader(new File(path)));
