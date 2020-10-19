@@ -1,17 +1,22 @@
-//package nearsoft.academy.bigdata.recommendation;
+package nearsoft.academy.bigdata.recommendation;
 
-
-import com.opencsv.CSVWriter;
+import org.apache.mahout.cf.taste.common.TasteException;
+import org.apache.mahout.cf.taste.impl.model.file.FileDataModel;
+import org.apache.mahout.cf.taste.impl.neighborhood.ThresholdUserNeighborhood;
+import org.apache.mahout.cf.taste.impl.recommender.GenericUserBasedRecommender;
+import org.apache.mahout.cf.taste.impl.similarity.PearsonCorrelationSimilarity;
+import org.apache.mahout.cf.taste.model.DataModel;
+import org.apache.mahout.cf.taste.neighborhood.UserNeighborhood;
+import org.apache.mahout.cf.taste.recommender.RecommendedItem;
+import org.apache.mahout.cf.taste.recommender.UserBasedRecommender;
+import org.apache.mahout.cf.taste.similarity.UserSimilarity;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class MovieRecommender {
 
@@ -21,84 +26,58 @@ public class MovieRecommender {
     int totalMovies = 0;
     HashMap<String, Integer> users;
     HashMap<String, Integer> products;
-    CSVWriter writer;
+    HashMap<Integer, String> invertedProducts;
     //Create a new csv file to push data with specified path
 
     public static void main(String[] args) throws IOException {
-        MovieRecommender recommenderTest = new MovieRecommender("data/moviestest1.txt");
+        MovieRecommender recommenderTest = new MovieRecommender("data/movies.txt");
     }
 
     MovieRecommender(String pathFile) throws IOException {
         users = new HashMap<String, Integer>();
         products = new HashMap<String, Integer>();
         readFile(pathFile);
-//        File file = new File("data/test1.csv"); // create FileWriter object with file as parameter
-//        FileOutputStream fos = new FileOutputStream(file);
-//        OutputStreamWriter osw = new OutputStreamWriter(fos, StandardCharsets.UTF_8);
-//        writer = new CSVWriter(osw);
-//        FileWriter outputFile = new FileWriter(file); // create CSVWriter object filewriter object as parameter
-//        writer = new CSVWriter(outputFile);
     }
 
     private void readFile(String pathFile) throws IOException {
+
         String productID = "product/productId: ";
         String userID = "review/userId: ";
         String valueID = "review/score: ";
-        String fileName = "data/moviestest1.txt";
+        String fileName = pathFile;
         try (BufferedReader br = new BufferedReader(new InputStreamReader(
                 new FileInputStream(fileName), StandardCharsets.UTF_8))) {
             String line;
+            String output = "data/output.csv";
+            Path path = Paths.get(output);
+            try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
             while ((line = br.readLine()) != null) {  //Checking if the line contains a specific string to match
                 if (line.contains(productID)) {
                     totalMovies++;
                     currentProduct = line.replace(productID, ""); //B003AI2VGA
                     if (!products.containsKey(currentProduct)) {
                         products.put(currentProduct, products.size());
+                        invertedProducts.put(products.size(), currentProduct);
                     }
                 } else if (line.contains(userID)) {
                     currentUser = line.replace(userID, "");
                     if (!users.containsKey(currentUser)) {
                         users.put(currentUser, users.size());
-                        System.out.println(users.size());
+//                        System.out.println(users.size());
                     }
                 } else if (line.contains(valueID)) {
                     currentValue = line.replace(valueID, ""); // 5.0
-                  System.out.println(currentProduct + currentUser + currentValue);
-                    ArrayList<String> cars = new ArrayList<String>();
-                    cars.add("Volvo");
-                    cars.add("BMW");
-                    cars.add("Ford");
-                    cars.add("Mazda");
-                    writeUnicodeJava8(pathFile, cars);
+//                  System.out.println(currentProduct + currentUser + currentValue);
+                    writer.write(users.get(currentUser) + "," + products.get(currentProduct) + "," + currentValue + "\n");
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void writeUnicodeJava8(String fileName, List<String> lines) {
-        Path path = Paths.get(fileName);
-        try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
-            for (String line : lines) {
-                writer.append(line);
-                writer.newLine();
+            }catch (IOException e) {
+                e.printStackTrace();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-//    private void writeData() throws FileNotFoundException {
-//        File file = new File("data/test1.csv"); // create FileWriter object with file as parameter
-//        FileOutputStream fos = new FileOutputStream(file);
-//        OutputStreamWriter osw = new OutputStreamWriter(fos, StandardCharsets.UTF_8);
-//        writer = new CSVWriter(osw);
-//        writer.writeNext(new String[]{"1"});
-//        currentValue = null;
-//        currentProduct = null;
-//        currentUser = null;
-//        }
 
     public int getTotalReviews() {
         return totalMovies;
@@ -111,29 +90,27 @@ public class MovieRecommender {
     public int getTotalUsers() {
         return users.size();
     }
-//
-//    public List<String> getRecommendationsForUser(String a141HP4LYPWMSR) throws IOException, TasteException {
-//        DataModel model = new FileDataModel(new File("data/test1.csv"));
-//
-//        UserSimilarity similarity = new PearsonCorrelationSimilarity(model);
-//
-//        UserNeighborhood neighborhood = new ThresholdUserNeighborhood(0.1, similarity, model);
-//
-//        UserBasedRecommender recommender = new GenericUserBasedRecommender(model, neighborhood, similarity);
-//
-//        List<RecommendedItem> recommendations = recommender.recommend(2, 3);
-//        for (RecommendedItem recommendation : recommendations) {
-//            System.out.println(recommendation);
-//        }
-//    }
+
+    public List<String> getRecommendationsForUser(String user) {
+        List<String> recommendations = new ArrayList<String>();
+        int userId = users.get(user);
+        try {
+            DataModel model = new FileDataModel(new File("src/data/movies.csv"));
+            UserSimilarity similarity = new PearsonCorrelationSimilarity(model);
+            UserNeighborhood neighborhood = new ThresholdUserNeighborhood(0.1, similarity, model);
+            UserBasedRecommender recommender = new GenericUserBasedRecommender(model, neighborhood, similarity);
+
+            List<RecommendedItem> rec = recommender.recommend(userId, 3);
+            for (RecommendedItem recommendation : rec) {
+                recommendations.add(invertedProducts.get((int) recommendation.getItemID()));
+            }
+            return recommendations;
+
+        } catch (IOException te) {
+            te.printStackTrace();
+        } catch (TasteException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
-
-
-
-// 1. Leer el archivo txt
-// 2. Encontrar la informacion que necesito
-// 3. Poner esta informacion [0] {userID, productID, value }
-// 4. Escribir archivo csv con la inform
-// 5.
-
-
