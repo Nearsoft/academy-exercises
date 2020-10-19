@@ -2,6 +2,9 @@ package nearsoft.academy.bigdata.recommendation;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -34,7 +37,8 @@ public class MovieRecommender {
     //Here we create two hash tables, one for the products and one for the users
     //We will be using them to count how many unique users there are and assign them ids
     HashMap<String, Integer> users = new HashMap<String, Integer>(); 
-    HashMap<String, Integer> products = new HashMap<String, Integer>(); 
+    HashMap<String, Integer> products = new HashMap<String, Integer>();
+    HashMap<Integer, String> inverseProducts = new HashMap<Integer, String>();
 
     // This is the constructor, when a MovieRecommender object is created
     // this is the method that will run first, it receives the path and filename
@@ -54,14 +58,14 @@ public class MovieRecommender {
             //We initialize our FileStream property with the path received by the object
             InputStream inputStream = new GZIPInputStream(new FileInputStream(this.filename));
             //We create a scanner on the FileStream to read it line by line
-            Scanner myReader = new Scanner(inputStream);
+            Reader decoder = new InputStreamReader(inputStream, "UTF-8");
+            BufferedReader myReader = new BufferedReader(decoder);
+            //Scanner myReader = new Scanner(inputStream);
             //We create a file and a writer to create or csv database
             //We need a bufferedwriter since it's probably gonna be massive
             File betterMovies = new File("movies.csv");
             FileWriter fileWriter = new FileWriter(betterMovies);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            //This will store the current line
-            String line;
             //This stores the RegEx Patterns
             Pattern productPattern = Pattern.compile("^product\\/productId:\\s([\\d\\D]*)$");
             Pattern userPattern = Pattern.compile("^review\\/userId:\\s([\\d\\D]*)$");
@@ -72,9 +76,9 @@ public class MovieRecommender {
             Matcher scoreRegex;
 
             //We iterate until the scanner has no more lines to analyze
-            while(myReader.hasNextLine()){
+            for(String line = myReader.readLine(); line != null; line = myReader.readLine()){
                 //We assign the current line read by the scanner to "line"
-                line = myReader.nextLine();
+                
                 //We create the matches with the regular expressions.
                 //This pattern looks for the product ID line, and returns the product ID
                 productRegex = productPattern.matcher(line);
@@ -95,11 +99,12 @@ public class MovieRecommender {
                         //We increment totalProducts by 1 and wait for a new product
                         this.totalProducts += 1;
                         products.put(productID, this.totalProducts);
+                        inverseProducts.put(this.totalProducts,productID);
                     }
                     productString = products.get(productID).toString();
                     //Since we are at the beginning of the review, we scroll until we find the user
                     while(!userRegex.matches()){
-                        line = myReader.nextLine();
+                        line = myReader.readLine();
                         userRegex = userPattern.matcher(line);
                     }
                     //We do something similar we did with the product.
@@ -111,7 +116,7 @@ public class MovieRecommender {
                     userString = users.get(userID).toString();
                     //And now we do the same for the score
                     while(!scoreRegex.matches()){
-                        line = myReader.nextLine();
+                        line = myReader.readLine();
                         scoreRegex = scorePattern.matcher(line);
                     }
                     String score = scoreRegex.group(1);
@@ -119,7 +124,7 @@ public class MovieRecommender {
                     //Finally, we write out to our new database.
                     bufferedWriter.write(userString + "," + productString + "," + score + "\n");
                     //Every thousand reviews, print. to check progress
-                    if(this.totalReviews%1000 == 0) System.out.println(this.totalReviews);
+                    if(this.totalReviews%10000 == 0) System.out.println(this.totalReviews);
                 }
             }
             bufferedWriter.close();
@@ -149,12 +154,7 @@ public class MovieRecommender {
     }
 
     private String getProductID(int value){
-        for (String key : products.keySet()) {
-            if (products.get(key)==value) {
-                return key;
-            }
-        }
-        return null;
+        return inverseProducts.get(value);
     }
 
     public List<String> getRecommendationsForUser(String user) throws TasteException {
