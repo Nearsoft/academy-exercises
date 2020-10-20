@@ -1,0 +1,6 @@
+.DS_Store
+license
+readme.md
+pom.xml
+target/test-classes/nearsoft/academy/bigdata/recommendation/MovieRecommender.class
+target/test-classes/nearsoft/academy/bigdata/recommendation/MovieRecommenderTest.class
