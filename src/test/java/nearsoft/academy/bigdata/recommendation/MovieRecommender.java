@@ -24,14 +24,15 @@ public class MovieRecommender {
     String currentUser = null;
     String currentValue = null;
     int totalMovies = 0;
+    int totalProducts = 0;
+    int totalReviews = 0;
+    int totalUsers = 0;
+    int productAmount;
+    int userAmount;
     HashMap<String, Integer> users;
     HashMap<String, Integer> products;
     HashMap<Integer, String> revertProducts;
     //Create a new csv file to push data with specified path
-
-    public static void main(String[] args) throws IOException {
-        MovieRecommender recommenderTest = new MovieRecommender("data/movies.txt");
-    }
 
     MovieRecommender(String pathFile) throws IOException {
         users = new HashMap<String, Integer>();
@@ -52,31 +53,38 @@ public class MovieRecommender {
             String output = "data/output.csv";
             Path path = Paths.get(output);
             try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
-            while ((line = br.readLine()) != null) {  //Checking if the line contains a specific string to match
-                if (line.startsWith(productID)) {
-                    totalMovies++;
-                    currentProduct = line.replace(productID, ""); //B003AI2VGA
-                    if (!products.containsKey(currentProduct)) {
-                        products.put(currentProduct, products.size() + 1);
-                        revertProducts.put(products.size() + 1, currentProduct);
-                    }
-                } else if (line.startsWith(userID)) {
-                    currentUser = line.replace(userID, "");
-                    if (!users.containsKey(currentUser)) {
-                        users.put(currentUser, users.size() + 1);
+
+                while ((line = br.readLine()) != null) {  //Checking if the line contains a specific string to match
+                    if (line.startsWith(productID)) {
+                        currentProduct = line.replace(productID, ""); //B003AI2VGA
+                        totalMovies++;
+                        if (!products.containsKey(currentProduct)) {
+                            totalProducts++;
+                            productAmount = totalProducts;
+                            products.put(currentProduct, totalProducts);
+                            revertProducts.put(totalProducts, currentProduct);
+                        } else {
+                            productAmount = products.get(currentProduct);
+                        }
+                    } else if (line.startsWith(userID)) {
+                        currentUser = line.replace(userID, "");
+                        if (!users.containsKey(currentUser)) {
+                            totalUsers++;
+                            userAmount = totalUsers;
+                            users.put(currentUser, totalUsers);
 //                        System.out.println(users.size());
-                    }
-                } else if (line.startsWith(valueID)) {
-                    currentValue = line.replace(valueID, ""); // 5.0
+                        } else {
+                            userAmount = users.get(currentUser);
+                        }
+                    } else if (line.startsWith(valueID)) {
+                        currentValue = line.replace(valueID, ""); // 5.0
 //                  System.out.println(currentProduct + currentUser + currentValue);
-                    writer.write(users.get(currentUser) + "," + products.get(currentProduct) + "," + currentValue + "\n");
-                    currentUser = null;
-                    currentProduct = null;
-                    currentValue = null;
+                        writer.write(userAmount + "," + productAmount + "," + currentValue + "\n");
+                        totalReviews++;
+                    }
                 }
-            }
-            br.close();
-            writer.close();
+                br.close();
+                writer.close();
             }catch (IOException e) {
                 e.printStackTrace();
             }
