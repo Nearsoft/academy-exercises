@@ -26,7 +26,7 @@ public class MovieRecommender {
     int totalMovies = 0;
     HashMap<String, Integer> users;
     HashMap<String, Integer> products;
-    HashMap<Integer, String> invertedProducts;
+    HashMap<Integer, String> revertProducts;
     //Create a new csv file to push data with specified path
 
     public static void main(String[] args) throws IOException {
@@ -36,6 +36,7 @@ public class MovieRecommender {
     MovieRecommender(String pathFile) throws IOException {
         users = new HashMap<String, Integer>();
         products = new HashMap<String, Integer>();
+        revertProducts = new HashMap<Integer, String>();
         readFile(pathFile);
     }
 
@@ -52,25 +53,30 @@ public class MovieRecommender {
             Path path = Paths.get(output);
             try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
             while ((line = br.readLine()) != null) {  //Checking if the line contains a specific string to match
-                if (line.contains(productID)) {
+                if (line.startsWith(productID)) {
                     totalMovies++;
                     currentProduct = line.replace(productID, ""); //B003AI2VGA
                     if (!products.containsKey(currentProduct)) {
-                        products.put(currentProduct, products.size());
-                        invertedProducts.put(products.size(), currentProduct);
+                        products.put(currentProduct, products.size() + 1);
+                        revertProducts.put(products.size() + 1, currentProduct);
                     }
-                } else if (line.contains(userID)) {
+                } else if (line.startsWith(userID)) {
                     currentUser = line.replace(userID, "");
                     if (!users.containsKey(currentUser)) {
-                        users.put(currentUser, users.size());
+                        users.put(currentUser, users.size() + 1);
 //                        System.out.println(users.size());
                     }
-                } else if (line.contains(valueID)) {
+                } else if (line.startsWith(valueID)) {
                     currentValue = line.replace(valueID, ""); // 5.0
 //                  System.out.println(currentProduct + currentUser + currentValue);
                     writer.write(users.get(currentUser) + "," + products.get(currentProduct) + "," + currentValue + "\n");
+                    currentUser = null;
+                    currentProduct = null;
+                    currentValue = null;
                 }
             }
+            br.close();
+            writer.close();
             }catch (IOException e) {
                 e.printStackTrace();
             }
@@ -92,19 +98,19 @@ public class MovieRecommender {
     }
 
     public List<String> getRecommendationsForUser(String user) {
-        List<String> recommendations = new ArrayList<String>();
+        List<String> recs = new ArrayList<String>();
         int userId = users.get(user);
         try {
-            DataModel model = new FileDataModel(new File("src/data/movies.csv"));
+            DataModel model = new FileDataModel(new File("data/output.csv"));
             UserSimilarity similarity = new PearsonCorrelationSimilarity(model);
             UserNeighborhood neighborhood = new ThresholdUserNeighborhood(0.1, similarity, model);
             UserBasedRecommender recommender = new GenericUserBasedRecommender(model, neighborhood, similarity);
 
             List<RecommendedItem> rec = recommender.recommend(userId, 3);
             for (RecommendedItem recommendation : rec) {
-                recommendations.add(invertedProducts.get((int) recommendation.getItemID()));
+                recs.add(revertProducts.get((int) recommendation.getItemID()));
             }
-            return recommendations;
+            return recs;
 
         } catch (IOException te) {
             te.printStackTrace();
