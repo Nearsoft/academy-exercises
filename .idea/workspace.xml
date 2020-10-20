@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f020fc1b-65e0-4e8f-bb38-807232a63718" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/test/java/nearsoft/academy/bigdata/recommendation/MovieRecommender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/nearsoft/academy/bigdata/recommendation/MovieRecommender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/nearsoft/academy/bigdata/recommendation/MovieRecommender.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/nearsoft/academy/bigdata/recommendation/MovieRecommender.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="$APPLICATION_HOME_DIR$/plugins/maven/lib/maven3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1j4wRwMhJCSk6nNmx5Ari6hKbZi" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/data" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="nearsoft.academy.bigdata.recommendation" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.MovieRecommenderTest">
+    <configuration name="MovieRecommender (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MovieRecommender" />
+      <module name="big-data" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MovieRecommender" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="nearsoft.academy.bigdata.recommendation.MovieRecommender" />
+      <module name="big-data" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="nearsoft.academy.bigdata.recommendation.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MovieRecommenderTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="big-data" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="nearsoft.academy.bigdata.recommendation.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="nearsoft.academy.bigdata.recommendation" />
+      <option name="MAIN_CLASS_NAME" value="nearsoft.academy.bigdata.recommendation.MovieRecommenderTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.MovieRecommenderTest" />
+        <item itemvalue="Application.MovieRecommender" />
+        <item itemvalue="Application.MovieRecommender (1)" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f020fc1b-65e0-4e8f-bb38-807232a63718" name="Default Changelist" comment="" />
+      <created>1603076676939</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1603076676939</updated>
+      <workItem from="1603076683343" duration="5309000" />
+      <workItem from="1603117076505" duration="17182000" />
+      <workItem from="1603143812044" duration="21083000" />
+      <workItem from="1603167459275" duration="166000" />
+    </task>
+    <task id="LOCAL-00001" summary="Lastest working version">
+      <created>1603130189213</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1603130189213</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Added getRecommendationsForUser">
+      <created>1603147644770</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1603147644770</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Lastest working version" />
+    <MESSAGE value="Added getRecommendationsForUser" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added getRecommendationsForUser" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1818" y="160" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1603077181355">
+      <screen x="1440" y="-30" width="1822" height="1057" />
+    </state>
+    <state x="1818" y="160" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.877/1440.-30.1822.1057@1440.-30.1822.1057" timestamp="1603077181355" />
+    <state x="1534" y="68" width="1617" height="862" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1603157605572">
+      <screen x="1440" y="-30" width="1805" height="1057" />
+    </state>
+    <state x="1540" y="47" width="1720" height="880" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.1440.900/1440.-53.1920.1080@1440.-53.1920.1080" timestamp="1603148166938" />
+    <state x="1534" y="68" width="1617" height="862" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.23.1440.877/1440.-30.1805.1057@1440.-30.1805.1057" timestamp="1603157605572" />
+    <state x="2138" y="241" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog" timestamp="1603147491599">
+      <screen x="1440" y="-53" width="1920" height="1080" />
+    </state>
+    <state x="2138" y="241" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog/0.0.1440.900/1440.-53.1920.1080@1440.-53.1920.1080" timestamp="1603147491599" />
+    <state width="1640" height="262" key="GridCell.Tab.0.bottom" timestamp="1603164268227">
+      <screen x="1440" y="-30" width="1828" height="1057" />
+    </state>
+    <state width="1878" height="291" key="GridCell.Tab.0.bottom/0.0.1440.900/1440.-53.1920.1080@1440.-53.1920.1080" timestamp="1603148717036" />
+    <state width="1640" height="241" key="GridCell.Tab.0.bottom/0.23.1440.877/1440.-30.1805.1057@1440.-30.1805.1057" timestamp="1603157625168" />
+    <state width="1640" height="241" key="GridCell.Tab.0.bottom/0.23.1440.877/1440.-30.1814.1057@1440.-30.1814.1057" timestamp="1603151504743" />
+    <state width="1640" height="356" key="GridCell.Tab.0.bottom/0.23.1440.877/1440.-30.1822.1057@1440.-30.1822.1057" timestamp="1603159375898" />
+    <state width="1640" height="262" key="GridCell.Tab.0.bottom/0.23.1440.877/1440.-30.1828.1057@1440.-30.1828.1057" timestamp="1603164268227" />
+    <state width="1878" height="291" key="GridCell.Tab.0.bottom/0.23.1440.877/1440.-53.1920.1080@1440.-53.1920.1080" timestamp="1603132158288" />
+    <state width="1640" height="262" key="GridCell.Tab.0.center" timestamp="1603164268225">
+      <screen x="1440" y="-30" width="1828" height="1057" />
+    </state>
+    <state width="1878" height="291" key="GridCell.Tab.0.center/0.0.1440.900/1440.-53.1920.1080@1440.-53.1920.1080" timestamp="1603148717032" />
+    <state width="1640" height="241" key="GridCell.Tab.0.center/0.23.1440.877/1440.-30.1805.1057@1440.-30.1805.1057" timestamp="1603157625165" />
+    <state width="1640" height="241" key="GridCell.Tab.0.center/0.23.1440.877/1440.-30.1814.1057@1440.-30.1814.1057" timestamp="1603151504739" />
+    <state width="1640" height="356" key="GridCell.Tab.0.center/0.23.1440.877/1440.-30.1822.1057@1440.-30.1822.1057" timestamp="1603159375895" />
+    <state width="1640" height="262" key="GridCell.Tab.0.center/0.23.1440.877/1440.-30.1828.1057@1440.-30.1828.1057" timestamp="1603164268225" />
+    <state width="1878" height="291" key="GridCell.Tab.0.center/0.23.1440.877/1440.-53.1920.1080@1440.-53.1920.1080" timestamp="1603132158285" />
+    <state width="1640" height="262" key="GridCell.Tab.0.left" timestamp="1603164268224">
+      <screen x="1440" y="-30" width="1828" height="1057" />
+    </state>
+    <state width="1878" height="291" key="GridCell.Tab.0.left/0.0.1440.900/1440.-53.1920.1080@1440.-53.1920.1080" timestamp="1603148717031" />
+    <state width="1640" height="241" key="GridCell.Tab.0.left/0.23.1440.877/1440.-30.1805.1057@1440.-30.1805.1057" timestamp="1603157625163" />
+    <state width="1640" height="241" key="GridCell.Tab.0.left/0.23.1440.877/1440.-30.1814.1057@1440.-30.1814.1057" timestamp="1603151504738" />
+    <state width="1640" height="356" key="GridCell.Tab.0.left/0.23.1440.877/1440.-30.1822.1057@1440.-30.1822.1057" timestamp="1603159375894" />
+    <state width="1640" height="262" key="GridCell.Tab.0.left/0.23.1440.877/1440.-30.1828.1057@1440.-30.1828.1057" timestamp="1603164268224" />
+    <state width="1878" height="291" key="GridCell.Tab.0.left/0.23.1440.877/1440.-53.1920.1080@1440.-53.1920.1080" timestamp="1603132158283" />
+    <state width="1640" height="262" key="GridCell.Tab.0.right" timestamp="1603164268226">
+      <screen x="1440" y="-30" width="1828" height="1057" />
+    </state>
+    <state width="1878" height="291" key="GridCell.Tab.0.right/0.0.1440.900/1440.-53.1920.1080@1440.-53.1920.1080" timestamp="1603148717033" />
+    <state width="1640" height="241" key="GridCell.Tab.0.right/0.23.1440.877/1440.-30.1805.1057@1440.-30.1805.1057" timestamp="1603157625166" />
+    <state width="1640" height="241" key="GridCell.Tab.0.right/0.23.1440.877/1440.-30.1814.1057@1440.-30.1814.1057" timestamp="1603151504740" />
+    <state width="1640" height="356" key="GridCell.Tab.0.right/0.23.1440.877/1440.-30.1822.1057@1440.-30.1822.1057" timestamp="1603159375897" />
+    <state width="1640" height="262" key="GridCell.Tab.0.right/0.23.1440.877/1440.-30.1828.1057@1440.-30.1828.1057" timestamp="1603164268226" />
+    <state width="1878" height="291" key="GridCell.Tab.0.right/0.23.1440.877/1440.-53.1920.1080@1440.-53.1920.1080" timestamp="1603132158286" />
+    <state width="1640" height="356" key="GridCell.Tab.1.bottom" timestamp="1603164241466">
+      <screen x="1440" y="-30" width="1828" height="1057" />
+    </state>
+    <state width="1878" height="376" key="GridCell.Tab.1.bottom/0.0.1440.900/1440.-53.1920.1080@1440.-53.1920.1080" timestamp="1603148604671" />
+    <state width="1640" height="356" key="GridCell.Tab.1.bottom/0.23.1440.877/1440.-30.1822.1057@1440.-30.1822.1057" timestamp="1603159375903" />
+    <state width="1640" height="356" key="GridCell.Tab.1.bottom/0.23.1440.877/1440.-30.1828.1057@1440.-30.1828.1057" timestamp="1603164241466" />
+    <state width="1640" height="356" key="GridCell.Tab.1.center" timestamp="1603164241463">
+      <screen x="1440" y="-30" width="1828" height="1057" />
+    </state>
+    <state width="1878" height="376" key="GridCell.Tab.1.center/0.0.1440.900/1440.-53.1920.1080@1440.-53.1920.1080" timestamp="1603148604669" />
+    <state width="1640" height="356" key="GridCell.Tab.1.center/0.23.1440.877/1440.-30.1822.1057@1440.-30.1822.1057" timestamp="1603159375901" />
+    <state width="1640" height="356" key="GridCell.Tab.1.center/0.23.1440.877/1440.-30.1828.1057@1440.-30.1828.1057" timestamp="1603164241463" />
+    <state width="1640" height="356" key="GridCell.Tab.1.left" timestamp="1603164241462">
+      <screen x="1440" y="-30" width="1828" height="1057" />
+    </state>
+    <state width="1878" height="376" key="GridCell.Tab.1.left/0.0.1440.900/1440.-53.1920.1080@1440.-53.1920.1080" timestamp="1603148604668" />
+    <state width="1640" height="356" key="GridCell.Tab.1.left/0.23.1440.877/1440.-30.1822.1057@1440.-30.1822.1057" timestamp="1603159375900" />
+    <state width="1640" height="356" key="GridCell.Tab.1.left/0.23.1440.877/1440.-30.1828.1057@1440.-30.1828.1057" timestamp="1603164241462" />
+    <state width="1640" height="356" key="GridCell.Tab.1.right" timestamp="1603164241464">
+      <screen x="1440" y="-30" width="1828" height="1057" />
+    </state>
+    <state width="1878" height="376" key="GridCell.Tab.1.right/0.0.1440.900/1440.-53.1920.1080@1440.-53.1920.1080" timestamp="1603148604670" />
+    <state width="1640" height="356" key="GridCell.Tab.1.right/0.23.1440.877/1440.-30.1822.1057@1440.-30.1822.1057" timestamp="1603159375902" />
+    <state width="1640" height="356" key="GridCell.Tab.1.right/0.23.1440.877/1440.-30.1828.1057@1440.-30.1828.1057" timestamp="1603164241464" />
+    <state x="1864" y="59" key="SettingsEditor" timestamp="1603127926219">
+      <screen x="1440" y="-53" width="1920" height="1080" />
+    </state>
+    <state x="1864" y="59" key="SettingsEditor/0.0.1440.900/1440.-53.1920.1080@1440.-53.1920.1080" timestamp="1603127926219" />
+    <state x="1842" y="80" key="SettingsEditor/0.23.1440.877/1440.-30.1822.1057@1440.-30.1822.1057" timestamp="1603077199931" />
+    <state x="1738" y="223" width="1614" height="677" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1603128617120">
+      <screen x="1440" y="-30" width="1814" height="1057" />
+    </state>
+    <state x="1738" y="223" width="1614" height="677" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.23.1440.877/1440.-30.1814.1057@1440.-30.1814.1057" timestamp="1603128617120" />
+    <state x="2213" y="408" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1603126358916">
+      <screen x="1440" y="-53" width="1920" height="1080" />
+    </state>
+    <state x="2213" y="408" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1440.900/1440.-53.1920.1080@1440.-53.1920.1080" timestamp="1603126358916" />
+    <state x="1946" y="230" width="907" height="617" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1603131687085">
+      <screen x="1440" y="-53" width="1920" height="1080" />
+    </state>
+    <state x="1946" y="230" width="907" height="617" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1440.900/1440.-53.1920.1080@1440.-53.1920.1080" timestamp="1603131687085" />
+    <state x="0" y="0" width="1440" height="900" key="dock-window-1" timestamp="1603145860679">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="0" y="0" width="1440" height="900" key="dock-window-1/0.0.1440.900/1440.-53.1920.1080@1440.-53.1920.1080" timestamp="1603145425877" />
+    <state x="0" y="0" width="1440" height="900" key="dock-window-1/0.23.1440.877/1440.-53.1814.1080@1440.-53.1814.1080" timestamp="1603145860679" />
+    <state x="1988" y="149" key="editAsTableFormatDialogDimension" timestamp="1603123903507">
+      <screen x="1440" y="-53" width="1920" height="1080" />
+    </state>
+    <state x="1988" y="149" key="editAsTableFormatDialogDimension/0.0.1440.900/1440.-53.1920.1080@1440.-53.1920.1080" timestamp="1603123903507" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="3" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
