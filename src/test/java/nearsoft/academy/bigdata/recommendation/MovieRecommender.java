@@ -4,11 +4,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.io.TaggedIOException;
 import org.apache.mahout.cf.taste.common.TasteException;
 import org.apache.mahout.cf.taste.impl.model.file.FileDataModel;
 import org.apache.mahout.cf.taste.impl.neighborhood.ThresholdUserNeighborhood;
@@ -21,6 +19,7 @@ import org.apache.mahout.cf.taste.recommender.UserBasedRecommender;
 import org.apache.mahout.cf.taste.similarity.UserSimilarity;
 
 public class MovieRecommender {
+    //Initialize variables
     Hashtable<String, Integer> users;
     Hashtable<String, Integer> products;
     Hashtable<Integer, String> productById;
@@ -29,37 +28,40 @@ public class MovieRecommender {
     int totalReviews;
     FileReader file;
 
-    public MovieRecommender(String pathFile) throws IOException, FileNotFoundException{
+    //Constructor
+    public MovieRecommender(String pathFile) throws IOException {
         this.totalUsers = 0;
         this.totalProducts = 0;
         this.totalReviews = 0;
         this.file = new FileReader(pathFile);
-        this.users = new Hashtable<String, Integer>();
-        this.products = new Hashtable<String, Integer>();
-        this.productById = new Hashtable<Integer, String>();
+        this.users = new Hashtable<>();
+        this.products = new Hashtable<>();
+        this.productById = new Hashtable<>();
 
         processFile();
     }
 
-    public void processFile() throws IOException, FileNotFoundException {
+    public void processFile() throws IOException {
 
         String userId = "";
         String productId = "";
         String reviewId = "";
 
-        FileWriter csvfile = new FileWriter("data.csv");
-        //Scanner readerFile = new Scanner(this.file);
+        FileWriter csvFile = new FileWriter("data.csv");
         BufferedReader br = new BufferedReader(this.file);
 
+        //Patterns for search the respective data with Regular Expressions
         Pattern usersRegex = Pattern.compile("review\\/userId: ([\\D\\d]+)");
         Pattern reviewsRegex = Pattern.compile("review\\/score: ([0-9]+).([0-9]+)");
         Pattern productsRegex = Pattern.compile("product\\/productId: ([\\D\\d]+)");
 
+        //Initialize a Matcher object for the conditions below
         Matcher matcherProduct, matcherUser, matcherReview;
+        //Initialize a string value for the line in the text file
         String Line;
-        //while (readerFile.hasNextLine()){
+
         while ((Line = br.readLine()) != null){
-            //String Line = readerFile.nextLine();
+
             matcherProduct = productsRegex.matcher(Line);
             matcherUser = usersRegex.matcher(Line);
             matcherReview = reviewsRegex.matcher(Line);
@@ -88,8 +90,11 @@ public class MovieRecommender {
                 }
 
             }
+
+            // This condition is for write the csv file when the userid, reviewId and product id has a value then
+            // we reassign the variables to null values
             if (!userId.equals("") && !reviewId.equals("") && !productId.equals("")){
-                csvfile.write(users.get(userId) + "," + products.get(productId) + "," + reviewId + "\n");
+                csvFile.write(users.get(userId) + "," + products.get(productId) + "," + reviewId + "\n");
                 userId = "";
                 productId = "";
                 reviewId = "";
@@ -97,8 +102,7 @@ public class MovieRecommender {
 
         }
 
-        //503readerFile.close();
-        csvfile.close();
+        csvFile.close();
     }
 
     public int getTotalReviews(){
@@ -118,8 +122,10 @@ public class MovieRecommender {
         UserNeighborhood neighborhood = new ThresholdUserNeighborhood(0.1, similarity, model);
         UserBasedRecommender recommender = new GenericUserBasedRecommender(model, neighborhood, similarity);
 
-        List<String> recommendations = new ArrayList<String>();
+        List<String> recommendations = new ArrayList<>();
 
+        //For the 3 items in recommender.recommend(...) we add the values in the index from the hashtable productById in
+        // the recommendations list
         for (RecommendedItem recommendation : recommender.recommend(users.get(userID), 3)) {
             recommendations.add(productById.get((int)(recommendation.getItemID())));
         }
