@@ -1,0 +1,10 @@
+# Build
+/target
+
+# IDE
+.idea
+.settings
+*.iml
+
+# Mac
+.DS_Store
