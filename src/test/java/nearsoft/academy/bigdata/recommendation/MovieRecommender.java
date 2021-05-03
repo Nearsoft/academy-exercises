@@ -13,7 +13,12 @@ import org.apache.mahout.cf.taste.recommender.RecommendedItem;
 import org.apache.mahout.cf.taste.recommender.UserBasedRecommender;
 import org.apache.mahout.cf.taste.similarity.UserSimilarity;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +31,7 @@ public class MovieRecommender {
     private int totalProducts;
     private int totalUsers;
 
-    public MovieRecommender(String txtPath) {
+    public MovieRecommender(String txtPath) throws IOException {
         this.txtPath = txtPath;
         this.csvPath = "data/movies.csv";
         this.userIds = new TreeBidiMap();
@@ -34,6 +39,7 @@ public class MovieRecommender {
         this.totalReviews = 0;
         this.totalProducts = 0;
         this.totalUsers = 0;
+        this.convertFileToCSV();
     }
 
     public int getTotalReviews() {

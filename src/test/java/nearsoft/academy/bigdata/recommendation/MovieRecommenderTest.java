@@ -17,7 +17,6 @@ public class MovieRecommenderTest {
         //    http://snap.stanford.edu/data/web-Movies.html
 
         MovieRecommender recommender = new MovieRecommender("data/movies.txt");
-        recommender.convertFileToCSV();
         assertEquals(7911684, recommender.getTotalReviews());
         assertEquals(253059, recommender.getTotalProducts());
         assertEquals(889176, recommender.getTotalUsers());
