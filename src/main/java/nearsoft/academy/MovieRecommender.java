@@ -28,8 +28,6 @@ import org.apache.mahout.cf.taste.similarity.UserSimilarity;
 public class MovieRecommender {
     private static String ROOT_PATH = System.getProperty("user.dir");
     private static String CSV_DATA_PATH = ROOT_PATH + "/src/main/resources/data.csv";
-    // private static String USER_INDEX = ROOT_PATH + "/src/main/resources/users.csv";
-    // private static String PRODUCT_INDEX = ROOT_PATH + "/src/main/resources/products.csv";
 
     private String dataFilePath;
     private Map<String, Integer> products = new HashMap<String,Integer>();
@@ -39,29 +37,22 @@ public class MovieRecommender {
     private int totalProducts = 0;
     private int totalReviews = 0;
 
-    // private ArrayList<MovieRecommender.User> users = new ArrayList<MovieRecommender.User>();
-
     public MovieRecommender(String dataFilePath) {
         this.dataFilePath = dataFilePath;
 
         File processedData = new File(CSV_DATA_PATH);
 
-        // if (!processedData.exists()) {
         try {
             if (processedData.exists()) { processedData.delete(); }
             processFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        // } else {
-            // analizeData();
-        // }
 
     }
 
     private void processFile () throws IOException {
         System.out.println("Processing data...\n");
-        long start1 = System.nanoTime(); 
 
         FileInputStream file = new FileInputStream(this.dataFilePath);
         GZIPInputStream gzip = new GZIPInputStream(file);
@@ -102,25 +93,7 @@ public class MovieRecommender {
         }
 
         fileWriter.close();
-        long end1 = System.nanoTime(); 
-        System.out.println("Elapsed Time in seconds: " + ((end1 - start1) * 0.000000001));
     }
-
-    // private void analizeData() {
-    //     System.out.println("Analyzing data...\n");
-    //     try {
-    //         FileReader fileReader = new FileReader(new File(CSV_DATA_PATH));
-    //         BufferedReader br = new BufferedReader(fileReader);
-    //         String line = "";
-            
-    //         while ((line = br.readLine()) != null) {
-    //             this.setOccurrences(line);
-    //         }
-
-    //     } catch (IOException e) {
-    //         e.printStackTrace();
-    //     }
-    // }
 
     private void setOccurrences (String productId, String userId) {
         // Count reviews
@@ -166,11 +139,7 @@ public class MovieRecommender {
 
             long user = users.get(userID);
 
-            System.out.println("User: " + userID + ": " + user);
-
             List<RecommendedItem> recommendationss = recommender.recommend(user, 3);
-
-            System.out.println("Number of recomendations: " + recommendations.size());
 
             for (RecommendedItem recommendation : recommendationss) {
                 int idOfProduct = (int) recommendation.getItemID();
@@ -183,17 +152,6 @@ public class MovieRecommender {
         
         return recommendations;
     }
-
-    // public static void main(String[] args) throws IOException, TasteException {
-    //     String ROOT_PATH = System.getProperty("user.dir");
-
-    //     MovieRecommender mr = new MovieRecommender(ROOT_PATH + "/src/main/resources/movies.txt.gz");
-
-    //     System.out.println("Total reviews: " + mr.getTotalReviews() + "\n");
-    //     System.out.println("Total users: " + mr.getTotalUsers() + "\n");
-    //     System.out.println("Total products: " + mr.getTotalProducts() + "\n");
-    //     mr.getRecommendationsForUser("A141HP4LYPWMSR");
-    // }
 
     class User {
         public long index;
