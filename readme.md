@@ -9,8 +9,9 @@ This repo contains several common big data exercises.
  
 ## Setup
 
-1. Install the  JDK 7.0
+1. Install the  JDK 17
 2. [Download & Install Maven](http://maven.apache.org/download.cgi)
+3. Add `movies.txt.gz` file to `/data` folder on root. 
    
  
 ## How to run tests
