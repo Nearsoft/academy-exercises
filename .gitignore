@@ -1,0 +1,8 @@
+data/
+target/
+.DS_Store
+.classpath
+.project
+.settings/
+.vscode/
+src/.DS_Store
