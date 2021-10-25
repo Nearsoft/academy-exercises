@@ -11,8 +11,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.zip.GZIPInputStream;
 
+import org.apache.commons.collections.BidiMap;
+import org.apache.commons.collections.bidimap.DualHashBidiMap;
 import org.apache.mahout.cf.taste.common.TasteException;
 import org.apache.mahout.cf.taste.impl.model.file.FileDataModel;
 import org.apache.mahout.cf.taste.impl.neighborhood.ThresholdUserNeighborhood;
@@ -20,7 +23,6 @@ import org.apache.mahout.cf.taste.impl.recommender.GenericUserBasedRecommender;
 import org.apache.mahout.cf.taste.impl.similarity.PearsonCorrelationSimilarity;
 import org.apache.mahout.cf.taste.model.DataModel;
 import org.apache.mahout.cf.taste.neighborhood.UserNeighborhood;
-import org.apache.mahout.cf.taste.recommender.RecommendedItem;
 import org.apache.mahout.cf.taste.recommender.UserBasedRecommender;
 import org.apache.mahout.cf.taste.similarity.UserSimilarity;
 
@@ -30,9 +32,10 @@ public class MovieRecommender {
     private static String CSV_DATA_PATH = ROOT_PATH + "/src/main/resources/data.csv";
 
     private String dataFilePath;
-    private Map<String, Integer> products = new HashMap<String,Integer>();
-    private Map<Integer, String> productsReverse = new HashMap<Integer,String>();
-    private Map<String, Integer> users = new HashMap<String,Integer>();
+
+    private BidiMap products = new DualHashBidiMap();
+    private Map<String, Integer> users = new HashMap<String, Integer>();
+
     private int totalUsers = 0;
     private int totalProducts = 0;
     private int totalReviews = 0;
@@ -87,7 +90,7 @@ public class MovieRecommender {
                 String productId = dataParts.get(0);
                 String score = dataParts.get(2);
 
-                int productIdxVal = (this.products.containsKey(productId) ? this.products.get(productId) : totalProducts);
+                int productIdxVal = (this.products.containsKey(productId) ? (int) this.products.get(productId) : totalProducts);
                 int userIdxVal = (this.users.containsKey(userId) ? this.users.get(userId) : totalUsers);
 
                 String mixedData = userIdxVal + "," + productIdxVal + "," + score + "\n";
@@ -110,7 +113,6 @@ public class MovieRecommender {
         // Count products
         if (!this.products.containsKey(productId)) {
             this.products.put(productId, totalProducts);
-            this.productsReverse.put(totalProducts, productId);
             this.totalProducts++;
         }
 
@@ -136,14 +138,11 @@ public class MovieRecommender {
     public List<String> getRecommendationsForUser (String userID) throws TasteException {
         List<String> recommendations = new ArrayList<String>();
 
-        long userIdx = users.get(userID);
-
-        List<RecommendedItem> recommendationss = recommender.recommend(userIdx, 3);
-
-        for (RecommendedItem recommendation : recommendationss) {
-            int idOfProduct = (int) recommendation.getItemID();
-            recommendations.add(productsReverse.get(idOfProduct));
-        }
+        recommendations = recommender.recommend(users.get(userID), 3)
+            .stream()
+            .map(item -> (String) products.getKey((int) item.getItemID()))
+            .collect(Collectors.toList()
+        );
 
         return recommendations;
     }
