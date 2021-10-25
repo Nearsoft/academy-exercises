@@ -9,7 +9,7 @@ This repo contains several common big data exercises.
  
 ## Setup
 
-1. Install the  JDK 7.0
+1. Install the  JDK 11.0
 2. [Download & Install Maven](http://maven.apache.org/download.cgi)
    
  
