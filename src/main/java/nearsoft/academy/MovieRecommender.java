@@ -37,7 +37,12 @@ public class MovieRecommender {
     private int totalProducts = 0;
     private int totalReviews = 0;
 
-    public MovieRecommender(String dataFilePath) {
+    private DataModel model;
+    private UserSimilarity similarity;
+    private UserNeighborhood neighborhood;
+    private UserBasedRecommender recommender;
+
+    public MovieRecommender(String dataFilePath) throws IOException, TasteException {
         this.dataFilePath = dataFilePath;
 
         File processedData = new File(CSV_DATA_PATH);
@@ -49,16 +54,18 @@ public class MovieRecommender {
             e.printStackTrace();
         }
 
+        this.model = new FileDataModel(new File(CSV_DATA_PATH));
+        this.similarity = new PearsonCorrelationSimilarity(this.model);
+        this.neighborhood = new ThresholdUserNeighborhood(0.1, this.similarity, this.model);
+        this.recommender = new GenericUserBasedRecommender(this.model, this.neighborhood, this.similarity);
     }
 
     private void processFile () throws IOException {
-        System.out.println("Processing data...\n");
-
         FileInputStream file = new FileInputStream(this.dataFilePath);
         GZIPInputStream gzip = new GZIPInputStream(file);
         InputStreamReader isr = new InputStreamReader(gzip);
         BufferedReader br = new BufferedReader(isr);
-        
+
         List<String> dataParts = new ArrayList<String>();
         String line;
 
@@ -85,7 +92,7 @@ public class MovieRecommender {
 
                 String mixedData = userIdxVal + "," + productIdxVal + "," + score + "\n";
                 fileWriter.write(mixedData);
-                
+
                 this.setOccurrences(productId, userId);
 
                 dataParts = new ArrayList<String>();
@@ -93,6 +100,7 @@ public class MovieRecommender {
         }
 
         fileWriter.close();
+        br.close();
     }
 
     private void setOccurrences (String productId, String userId) {
@@ -128,39 +136,15 @@ public class MovieRecommender {
     public List<String> getRecommendationsForUser (String userID) throws TasteException {
         List<String> recommendations = new ArrayList<String>();
 
-        try {
-            DataModel model = new FileDataModel(new File(CSV_DATA_PATH));
+        long userIdx = users.get(userID);
 
-            UserSimilarity similarity = new PearsonCorrelationSimilarity(model);
+        List<RecommendedItem> recommendationss = recommender.recommend(userIdx, 3);
 
-            UserNeighborhood neighborhood = new ThresholdUserNeighborhood(0.1, similarity, model);
-
-            UserBasedRecommender recommender = new GenericUserBasedRecommender(model, neighborhood, similarity);
-
-            long user = users.get(userID);
-
-            List<RecommendedItem> recommendationss = recommender.recommend(user, 3);
-
-            for (RecommendedItem recommendation : recommendationss) {
-                int idOfProduct = (int) recommendation.getItemID();
-                recommendations.add(productsReverse.get(idOfProduct));
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        for (RecommendedItem recommendation : recommendationss) {
+            int idOfProduct = (int) recommendation.getItemID();
+            recommendations.add(productsReverse.get(idOfProduct));
         }
-        
+
         return recommendations;
     }
-
-    class User {
-        public long index;
-        public String id;
-    }
-
-    class Product {
-        public long index;
-        public String id;
-    }
-    
 }
