@@ -1,5 +1,11 @@
 package nearsoft.academy.bigdata.recommendation;
 
+import java.io.*;
+import java.util.Hashtable;
+import java.util.zip.GZIPInputStream;
+import java.util.List;
+import java.util.ArrayList;
+
 import org.apache.mahout.cf.taste.model.DataModel;
 import org.apache.mahout.cf.taste.impl.recommender.GenericUserBasedRecommender;
 import org.apache.mahout.cf.taste.impl.similarity.PearsonCorrelationSimilarity;
@@ -11,23 +17,18 @@ import org.apache.mahout.cf.taste.similarity.UserSimilarity;
 import org.apache.mahout.cf.taste.common.TasteException;
 import org.apache.mahout.cf.taste.impl.model.file.FileDataModel;
 
-import java.io.*;
-import java.util.Hashtable;
-import java.util.zip.GZIPInputStream;
-import java.util.List;
-import java.util.ArrayList;
-
-
-
 public class MovieRecommender {
     String dataPath;
     int totalUsers;
     int totalProducts;
     int totalReviews;
 
+    // Keep track of users and movies in the dataset
     Hashtable<String, Integer> users;
-    Hashtable<Integer, String> Index2Products;
     Hashtable<String, Integer> products2Index;
+
+    // For querying movies
+    Hashtable<Integer, String> index2Products;
 
     DataModel model;
     UserSimilarity similarity;
@@ -42,13 +43,13 @@ public class MovieRecommender {
         this.totalReviews = 0;
 
         this.users = new Hashtable<String, Integer>();
-        this.Index2Products = new Hashtable<Integer, String>();
+        this.index2Products = new Hashtable<Integer, String>();
         this.products2Index = new Hashtable<String, Integer>();
 
         try {
             dataPreprocess();
-            loadData();
-        } catch (IOException e) {
+            loadDataModel();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     
@@ -67,16 +68,18 @@ public class MovieRecommender {
         return this.totalProducts;
     }
 
-    public List<String> getRecommendationsForUser(String user) throws TasteException {
-        this.similarity = new PearsonCorrelationSimilarity(this.model);
-        this.neighborhood = new ThresholdUserNeighborhood(0.1, this.similarity, this.model);
-        this.recommender = new GenericUserBasedRecommender(this.model, this.neighborhood, this.similarity);
+    /**
+    * Get the list of the recommendations
+     */
+    public List<String> getRecommendationsForUser(String user) throws TasteException  {
         List<String> recommendations = new ArrayList<String>(); 
 
-        for (RecommendedItem recommendation : recommender.recommend(users.get(user), 3)) {
+        for (RecommendedItem recommendation : this.recommender.recommend(users.get(user), 3)) {
             //System.out.println(recommendation.getItemID());
-            recommendations.add(this.Index2Products.get((int)(recommendation.getItemID())));
-            //recommendations.add(this.Index2Products.get((int)(recommendation.getItemID())));
+            long rec = recommendation.getItemID();
+            int rec_index = (int) rec;
+            String rec_id = this.index2Products.get(rec_index);
+            recommendations.add(rec_id);
 
         }
         return recommendations;
@@ -85,9 +88,13 @@ public class MovieRecommender {
     /**
     * Load .csv file
     */
-    private void loadData() throws IOException {
+    private void loadDataModel() throws IOException, TasteException  {
         this.model = new FileDataModel(new File("data/movies.csv"));
+        this.similarity = new PearsonCorrelationSimilarity(this.model);
+        this.neighborhood = new ThresholdUserNeighborhood(0.1, this.similarity, this.model);    
+        this.recommender = new GenericUserBasedRecommender(this.model, this.neighborhood, this.similarity);
     }
+    
 
     /**
     * Extract data from .gz, iterate through .txt and create a .csv 
@@ -104,11 +111,11 @@ public class MovieRecommender {
         // Create .csv
         BufferedWriter csvFile = new BufferedWriter(new FileWriter("data/movies.csv"));
         
-        String line = txtFile.readLine();
-        
         String productId = "";
         String score = "";
         String userId = "";
+
+        String line = txtFile.readLine();
 
         while (line != null) {
             //System.out.println(line);
@@ -118,7 +125,7 @@ public class MovieRecommender {
 
                 if (this.products2Index.get(productId) == null) {
                     this.totalProducts++;
-                    this.Index2Products.put(this.totalProducts, productId);
+                    this.index2Products.put(this.totalProducts, productId);
                     this.products2Index.put(productId, this.totalProducts);
                     //System.out.println("Product: " + productId);
                 }
@@ -138,7 +145,7 @@ public class MovieRecommender {
             }
 
 
-
+            // If we have all the fields for one review
             if ((userId != "") && (productId != "") && (score != "")) {
                 csvFile.write(
                     this.users.get(userId) + "," +
@@ -156,7 +163,6 @@ public class MovieRecommender {
                 productId = "";
                 score = "";
                 userId = "";
-               
             }
             
             line = txtFile.readLine();
