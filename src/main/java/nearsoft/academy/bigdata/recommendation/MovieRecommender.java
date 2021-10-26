@@ -34,9 +34,9 @@ public class MovieRecommender {
     private final BiMap<String, Long> movies;
 
     private Long totalReviews;
-    private static final Integer records = 1000000;
-    private static final Double threshold = 0.1;
-    private static final Integer recommendationsNum = 3;
+    private static final Integer RECORDS = 1000000;
+    private static final Double THRESHOLD = 0.1;
+    private static final Integer RECOMMENDATIONS_NUM = 3;
 
     public MovieRecommender(String filePath) {
         users = new HashMap<>();
@@ -96,7 +96,7 @@ public class MovieRecommender {
                 if (Objects.nonNull(userID) && Objects.nonNull(movieID) && Objects.nonNull(score)) {
                     fileWriter.write(String.format("%s,%s,%s\n", users.get(userID), movies.get(movieID), score));
                     userID = movieID = score = null;
-                    if (totalReviews % records == 0){
+                    if (totalReviews % RECORDS == 0){
                         log.info(String.format("Parsed %d lines", totalReviews));
                     }
                 }
@@ -124,9 +124,9 @@ public class MovieRecommender {
         var file = new File(CSV_PATH);
         var dataModel = new FileDataModel(file);
         var userSimilarity = new PearsonCorrelationSimilarity(dataModel);
-        var neighborhood = new ThresholdUserNeighborhood(threshold, userSimilarity, dataModel);
+        var neighborhood = new ThresholdUserNeighborhood(THRESHOLD, userSimilarity, dataModel);
         var recommender = new GenericUserBasedRecommender(dataModel, neighborhood, userSimilarity);
-        return recommender.recommend(users.get(userID), recommendationsNum)
+        return recommender.recommend(users.get(userID), RECOMMENDATIONS_NUM)
                 .stream()
                 .map(movie -> movies.inverse().get(movie.getItemID()))
                 .collect(Collectors.toList());
