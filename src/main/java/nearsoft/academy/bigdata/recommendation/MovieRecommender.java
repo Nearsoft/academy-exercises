@@ -50,24 +50,12 @@ public class MovieRecommender {
     public MovieRecommender(String dataFilePath) throws IOException, TasteException {
         this.dataFilePath = dataFilePath;
 
-        //File processedData = new File(CSV_DATA_PATH);
-        //File usersIndex = new File(USERS_INDEX_PATH);
-        //File productsIndex = new File(PRODUCTS_INDEX_PATH);
-
         try {
             readFile();
         } catch (IOException error) {
             error.printStackTrace();
         }
-        //if (processedData.exists() && usersIndex.exists() && productsIndex.exists()) { // quita esta parte
-        //    this.retrieveData();
-        //} else {
-        //    try {
-        //        processFile();
-        //    } catch (IOException e) {
-        //        e.printStackTrace();
-        //    }
-        //}
+
 
         this.model = new FileDataModel(new File(CSV_DATA_PATH));
         this.similarity = new PearsonCorrelationSimilarity(this.model);
@@ -123,8 +111,8 @@ public class MovieRecommender {
     }
 
     private void setOccurrences (String productId, String userId) {
-        // Count reviews
-        this.totalReviews++;
+
+        this.totalReviews++; // Count reviews
 
         // Count products
         if (!this.products.containsKey(productId)) {
@@ -141,8 +129,8 @@ public class MovieRecommender {
             totalProducts++;
         }
 
-        // Count users
-        if (!this.users.containsKey(userId)) {
+
+        if (!this.users.containsKey(userId)) {// Count users
             this.users.put(userId, totalUsers);
 
             try {
@@ -159,8 +147,7 @@ public class MovieRecommender {
     private void retrieveData () throws IOException {
         this.model = new FileDataModel(new File(CSV_DATA_PATH));
 
-        // Read products
-        BufferedReader productReader = new BufferedReader(new FileReader(PRODUCTS_INDEX_PATH));
+        BufferedReader productReader = new BufferedReader(new FileReader(PRODUCTS_INDEX_PATH));// Read products
         String product;
 
         while ((product = productReader.readLine()) != null) {
@@ -173,8 +160,7 @@ public class MovieRecommender {
         }
         productReader.close();
 
-        // Read users
-        BufferedReader usersReader = new BufferedReader(new FileReader(USERS_INDEX_PATH));
+        BufferedReader usersReader = new BufferedReader(new FileReader(USERS_INDEX_PATH));// Read users
         String user;
 
         while ((user = usersReader.readLine()) != null) {
@@ -186,8 +172,7 @@ public class MovieRecommender {
         }
         usersReader.close();
 
-        // Count reviews
-        BufferedReader reviewsReader = new BufferedReader(new FileReader(CSV_DATA_PATH));
+        BufferedReader reviewsReader = new BufferedReader(new FileReader(CSV_DATA_PATH));// Count reviews
 
         while (reviewsReader.readLine() != null) {
             this.totalReviews++;
