@@ -13,9 +13,13 @@ import static org.junit.matchers.JUnitMatchers.hasItem;
 public class MovieRecommenderTest {
     @Test
     public void testDataInfo() throws IOException, TasteException {
-        //download movies.txt.gz from 
+        //download movies.txt.gz from:
         //    http://snap.stanford.edu/data/web-Movies.html
-        MovieRecommender recommender = new MovieRecommender("/path/to/movies.txt.gz");
+
+        // Obtain the current directory
+        String ROOT_PATH = System.getProperty("user.dir");
+
+        MovieRecommender recommender = new MovieRecommender(ROOT_PATH + "/src/main/data/movies.txt.gz");
         assertEquals(7911684, recommender.getTotalReviews());
         assertEquals(253059, recommender.getTotalProducts());
         assertEquals(889176, recommender.getTotalUsers());
