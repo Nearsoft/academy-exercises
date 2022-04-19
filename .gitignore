@@ -1,0 +1,4 @@
+/target/
+data/dataset.csv
+data/movies.txt
+data/movies.txt.gz
