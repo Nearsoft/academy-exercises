@@ -95,9 +95,8 @@ public class MovieRecommender {
                         break;
                 }
             }
-
-
-            if (line.isEmpty()) {
+            
+            if (!product_ID.isEmpty() && !user_ID.isEmpty() && !score.isEmpty()) {
 
                 csvFile.write(this.userIDMap.get(user_ID) + "," + this.productIDMap.get(product_ID) + "," + score + "\n");
 
@@ -116,8 +115,7 @@ public class MovieRecommender {
     }
 
     private void loadModel() throws IOException, TasteException {
-        File my_file = new File(this.csvFilePath);
-        this.model = new FileDataModel(my_file);
+        this.model = new FileDataModel(new File(this.csvFilePath));
         this.similarity = new PearsonCorrelationSimilarity(this.model);
         this.neighborhood = new ThresholdUserNeighborhood(0.1, this.similarity, this.model);
         this.recommender = new GenericUserBasedRecommender(this.model, this.neighborhood, this.similarity);
@@ -125,7 +123,7 @@ public class MovieRecommender {
 
     public List<String> getRecommendationsForUser(String userID) throws TasteException {
         
-        List <String> recommended = new ArrayList<String>() {};
+        List <String> recommended = new ArrayList<>() {};
         List<RecommendedItem> recommendations = this.recommender.recommend(this.userIDMap.get(userID), 3);
 			
         for (RecommendedItem recommendation : recommendations) {
